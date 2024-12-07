@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Drag Notes</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="drag-container">
+        {% for note in notes %}
+        <div class="draggable-note" draggable="true" style="background-color: {{ note.color }}; left: 50px; top: 50px;">
+            <h2>{{ note.title }}</h2>
+            <p>{{ note.content }}</p>
+            <form method="POST" action="/change-color" class="change-color-form">
+                <input type="hidden" name="index" value="{{ loop.index0 }}">
+                <input type="color" name="color" value="{{ note.color }}">
+                <button type="submit" class="change-color-btn">Change Color</button>
+            </form>
+        </div>
+        {% endfor %}
+    </div>
+    <script src="/static/drag_script.js"></script>
+</body>
+</html>
