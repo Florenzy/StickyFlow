@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block title %}Tasks{% endblock %}
+
+{% block content %}
+<h1>Tasks</h1>
+<form class="task-form" method="POST" action="/tasks/add">
+    <input type="text" name="title" placeholder="Task Title" required>
+    <textarea name="description" placeholder="Task Description"></textarea>
+    <input type="time" name="time" required>
+    <button type="submit">Add Task</button>
+</form>
+<div class="tasks">
+    {% for task in tasks %}
+    <div class="task">
+        <p><strong>{{ task.title }}</strong> ({{ task.time }})</p>
+        <p>{{ task.description }}</p>
+        <form method="POST" action="/tasks/delete">
+            <input type="hidden" name="index" value="{{ loop.index0 }}">
+            <button class="delete-btn" type="submit">Delete</button>
+        </form>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

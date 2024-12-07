@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block title %}Calendar{% endblock %}
+
+{% block content %}
+<h1>Calendar</h1>
+<form class="calendar-form" method="POST" action="/calendar/add">
+    <input type="date" name="date" required>
+    <input type="text" name="title" placeholder="Event Title" required>
+    <textarea name="description" placeholder="Event Description"></textarea>
+    <button type="submit">Add Event</button>
+</form>
+<div class="events">
+    {% for event in calendar %}
+    <div class="event">
+        <p><strong>{{ event.title }}</strong> ({{ event.date }})</p>
+        <p>{{ event.description }}</p>
+        <form method="POST" action="/calendar/delete">
+            <input type="hidden" name="index" value="{{ loop.index0 }}">
+            <button class="delete-btn" type="submit">Delete</button>
+        </form>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
